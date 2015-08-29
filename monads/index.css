@@ -1,0 +1,11 @@
+html { background-color: purple; }
+html { background-image: url(http://www.transparenttextures.com/patterns/gray-floral.png); }
+body { background-color: #fefeff; padding: 1em; }
+body { max-width: 30em; margin: 2em auto; }
+body { font-family: courier; }
+body { font-size: 19px; line-height: 1.4; }
+body { border-radius: 4px; }
+p { color: #333; }
+h1 { font-size: 22px; margin-top: 0; text-align: center; }
+h2 { font-size: 20px; }
+code { background-color: #efefef; padding: 2px 4px; font-weight: 500; }
