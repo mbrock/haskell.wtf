@@ -9,14 +9,81 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; } /* Keyword */
+code > span.dt { text-decoration: underline; } /* DataType */
+code > span.co { font-style: italic; } /* Comment */
+code > span.al { font-weight: bold; } /* Alert */
+code > span.er { font-weight: bold; } /* Error */
+code > span.wa { font-style: italic; } /* Warning */
+code > span.cf { font-weight: bold; } /* ControlFlow */
+code > span.pp { font-weight: bold; } /* Preprocessor */
+code > span.do { font-style: italic; } /* Documentation */
+code > span.an { font-style: italic; } /* Annotation */
+code > span.cv { font-style: italic; } /* CommentVar */
+code > span.in { font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.0/katex.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.0/katex.min.css" /><script type="text/javascript">window.onload = function(){var mathElements = document.getElementsByClassName("math");
+  for (var i=0; i < mathElements.length; i++)
+  {
+   var texText = mathElements[i].firstChild
+   katex.render(texText.data, mathElements[i])
+  }}
+  </script>
 </head>
 <body>
 <h1 id="wtf-are-monads">WTF are <em>monads</em>?</h1>
 <p>Excellent question!</p>
 <p>Unfortunately… this text will probably not help much.</p>
-<p>My confession: I love Haskell, I’ve worked with it professionally, I’m semi-competent with it, but I can’t claim to “understand monads.”</p>
-<p>Not any more than I’d claim to “understand rings.” My other confession is that I failed the only abstract algebra course I took.</p>
-<p>So I don’t have much to offer, beyond “you can do it!” That’s what the <code>do</code> notation is all about, by the way. Just <code>do</code> it.</p>
+<p>My confession: I love Haskell, I’m semi-competent with it, but I can’t say I “understand monads.”</p>
+<p>Not any more than I can say I “understand groups.” You know, groups from abstract algebra? My other confession is that I failed the only abstract algebra course I took…</p>
+<p>I remember studying it. At the time I was getting into green tea. So I would make a lot of tea and sit down to read the textbook, do some exercises, study some proofs… And end up frustrated.</p>
+<p>Still, I’m going to try teaching some of it to you now, just to see if I remember. This won’t be on the exam… It’s just an example for talking about how to think about—and work with—abstract concepts, like the concept “monad.”</p>
+<p>Hopefully the mathematical analogy will clarify something about the relation between theory and practice, and why Haskell can seem more intimidating than it should.</p>
+<p>So let’s leave the world of programming behind for a second, and breathe the clean mountain air of algebra!</p>
+<h2 id="groups">Groups</h2>
+<p>The concept “group” is really simple. You start with agreeing on the basic notions: sets, elements, operators, and equations. And then…</p>
+<p>You need a set, call it <span class="math inline">G</span>. Say <span class="math inline">x,y,z</span> are arbitrary elements of <span class="math inline">G</span>.</p>
+<p>You need an associative operator on <span class="math inline">G</span>, call it <span class="math inline">*</span>, so <span class="math display">\displaystyle x * (y * z)
+= (x * y) * z,</span> which is to say you can regroup these computations.</p>
+<p>You also need an identity element of <span class="math inline">G</span>, call it <span class="math inline">e</span>, so <span class="math display">\displaystyle x*e = e*x
+= x.</span> And you need inverse elements, written <span class="math inline">-x</span>, so <span class="math display">\displaystyle x*(-x)=e.</span> Why would this be interesting or useful? Well, since this basic structure can be applied to many different sets and operators, it’s interesting to explore what you can say given only these assumptions.</p>
+<p>For example… We can see exactly what it means to “simplify” a term of symbolic elements—like when we reduce, say, <span class="math display">\displaystyle x+(0 + (-x + y))</span> to just <span class="math inline">y.</span> What’s the algorithm for this? If you devise a method, and prove it correct for groups in general, then you can use it in good faith with different groups. The exact same steps apply to <span class="math display">\displaystyle x*(1*(x^{-1}*y)),</span> so if you can reuse your reasoning you save on math paper.</p>
+<p>Concrete algebra came first. And when you learn algebra, you learn it with numbers first, then with symbols, and then if you’re interested, you can study the abstract concepts—which are historically rather new.</p>
+<h2 id="what-is-a-group-like-really">What “Is” a Group… Like, Really?</h2>
+<p>If you do the first pages of exercises in any modern algebra book, you’ll be proficient enough in proving basic things about groups. You’ll learn about some more specific variants of groups, like finite groups, abelian groups, and cyclic groups. And you’ll learn about other concepts built on the group concept, like subgroups.</p>
+<p>But what <em>is</em> the thing you’re studying? This question turns out to be a deep rabbit hole that leads to philosophy, ontology, epistemology, and who knows what.</p>
+<p>An interesting talk by Timothy Gowers, entitled <a href="https://www.dpmms.cam.ac.uk/~wtg10/philosophy.html">“Does mathematics need a philosophy?”</a>, has this bit, about how hard it is to find ‘satisfactory’ definitions of abstract concepts:</p>
+<blockquote>
+<p>I would contend that it doesn’t matter because it <em>never</em> matters what a mathematical object is, or whether it exists. What <em>does</em> matter is the set of rules governing how you talk about it—or perhaps I should say, since that sounds as though “it” refers to something, what matters about a piece of <em>mathematical terminology</em> is the set of rules governing its use.</p>
+</blockquote>
+<p>He also says:</p>
+<blockquote>
+<p>What matters about them is the basic properties enjoyed by the objects being defined, and learning to use these fluently and easily means learning appropriate replacement rules rather than <em>grasping the essence of the concept.</em></p>
+</blockquote>
+<p>That’s why I felt so confused when I was trying to study abstract algebra.</p>
+<p>From this brief detour into the pedagogy of math, let’s return to Haskell.</p>
+<h2 id="functors-and-monads">Functors and Monads</h2>
+<p>If you grant that “grasping the essence of the concept” is not applicable to abstract mathematical terminology, you might stop worrying about whether you “understand” monads. From there you just keep doing Haskell.</p>
+<p>So… what are the basic properties of monads, again? Well, the concept extends the concept of a functor.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span>
+<span class="ot">  fmap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (f a <span class="ot">-&gt;</span> f b)
+
+<span class="kw">class</span> <span class="dt">Functor</span> m <span class="ot">=&gt;</span> <span class="dt">Monad</span> m <span class="kw">where</span>
+<span class="ot">  return ::</span> a <span class="ot">-&gt;</span> m a
+<span class="ot">  join   ::</span> m (m a) <span class="ot">-&gt;</span> m a</code></pre></div>
+<p>Those are the type definitions, but there are also fundamental algebraic properties (“laws”) involved.</p>
+<p>A functor behaves well with respect to the identity function and the function composition operator, like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap id      <span class="fu">===</span> id
+fmap (f <span class="fu">.</span> g) <span class="fu">===</span> fmap f <span class="fu">.</span> fmap g</code></pre></div>
+<p>A monad behaves well with respect to <code>fmap</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"></code></pre></div>
 </body>
 </html>

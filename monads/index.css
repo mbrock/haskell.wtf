@@ -1,11 +1,11 @@
-html { background-color: purple; }
-html { background-image: url(http://www.transparenttextures.com/patterns/gray-floral.png); }
-body { background-color: #fefeff; padding: 1em; }
 body { max-width: 30em; margin: 2em auto; }
-body { font-family: courier; }
-body { font-size: 19px; line-height: 1.4; }
+body { font-family: helvetica; }
+body { font-size: 16px; line-height: 1.4; }
 body { border-radius: 4px; }
 p { color: #333; }
 h1 { font-size: 22px; margin-top: 0; text-align: center; }
-h2 { font-size: 20px; }
+h2 { font-size: 14px; text-align: center; margin-top: 4ex; }
 code { background-color: #efefef; padding: 2px 4px; font-weight: 500; }
+.math.display { display: block; text-align: center; padding: 10px 0 12px; }
+pre code { background-color: inherit; padding: inherit; }
+pre { margin: 0 2em; }
