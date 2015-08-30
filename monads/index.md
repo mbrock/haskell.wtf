@@ -50,13 +50,12 @@ of symbolic elements---like when we reduce, say, $$x+(0 + (-x + y))$$
 to just $y.$ What's the algorithm for this? If you devise a method,
 and prove it correct for groups in general, then you can use it in
 good faith with different groups. The exact same steps apply to
-$$x*(1*(x^{-1}*y)),$$ so if you can reuse your reasoning you save on
-math paper.
+$$p\vee(\bot \vee(\neg x \vee y)),$$ so if you can reuse your
+reasoning you save on math paper.
 
 Concrete algebra came first. And when you learn algebra, you learn it
 with numbers first, then with symbols, and then if you're interested,
-you can study the abstract concepts---which are historically
-rather new.
+you can study the abstract concepts.
 
 ## What "Is" a Group... Like, Really?
 

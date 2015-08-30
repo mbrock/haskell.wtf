@@ -1,4 +1,4 @@
-HTMLOPTS = --katex -c index.css --smart -t html5 --highlight-style=monochrome
+HTMLOPTS = --mathjax -c index.css --smart -t html5 --highlight-style=monochrome
 
 all: clean index.html index.pdf
 clean:; rm *.html
